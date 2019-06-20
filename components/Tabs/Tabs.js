@@ -5,17 +5,18 @@ class TabLink {
     this.element = element
     
     // Get the custom data attribute on the Link
-    this.data = element.dataset.tab
-    console.log(this.data)
+    this.data = this.element.dataset.tab
+    
     // Using the custom data attribute get the associated Item element
-    this.itemElement = document.querySelector(`.tabs-item-description[data-tab="${tabNumber}"]`)
+    this.itemElement = document.querySelector(`.tabs-item[data-tab="${this.data}"]`)
     
     // Using the Item element, create a new instance of the TabItem class
     this.tabItem = new TabItem(this.itemElement)
 
     
     // Add a click event listener on this instance, calling the select method on click
-    element.addEventListener('click', () => this.select())
+    this.element.addEventListener('click', () => this.select())
+   
   };
 
   select() {
@@ -29,7 +30,7 @@ class TabLink {
     this.element.classList.add('tabs-link-selected')
     
     // Call the select method on the item associated with this link
-
+    this.tabItem.select()
   }
 }
 
@@ -45,7 +46,7 @@ class TabItem {
 
     // Remove the class "tabs-item-selected" from each element
     items.forEach(item => item.classList.remove('tabs-item-selected'))
-    
+
     // Add a class named "tabs-item-selected" to this element
     this.element.classList.add('tabs-item-selected')
     
